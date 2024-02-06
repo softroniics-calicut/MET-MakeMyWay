@@ -368,7 +368,19 @@ def packageDetails(request,id):
 def userviewbookings(request):
     User = CustomUser.objects.get(id=request.user.id)
     bookings_data = Booking.objects.filter(user_id=User).order_by('-status','-date')
-    return render(request, 'User/Booking.html', {'bookings_data':bookings_data, 'User':User})
+    items_per_page = 5
+    # Use Paginator to paginate the products
+    paginator = Paginator(bookings_data, items_per_page)
+    page = request.GET.get('page', 1)
+    try:
+        packages = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page
+        packages = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver the last page of results
+        packages = paginator.page(paginator.num_pages)
+    return render(request, 'User/Booking.html', {'bookings_data':packages, 'User':User})
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url=Login)

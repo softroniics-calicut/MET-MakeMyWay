@@ -310,6 +310,28 @@
       {% endfor %}
     </table>
 
+    <!-- Pagination links -->
+    <div class="pagination mt-3 d-flex justify-content-end pe-5 mb-4  fw-bold text-black text-end ">
+      <span class="step-links  ">
+        {% if bookings_data.has_previous %}
+        <a class="btn btn-dark" href="?page=1">&laquo; first</a>
+        <a class="btn btn-dark" href="?page={{ bookings_data.previous_page_number }}">previous</a>
+        {% endif %}
+        {% if bookings_data.has_next %}
+
+        <!-- <a href="?page={{ bookings_data.paginator.num_pages }}" class="text-decoration-none text-white btn btn-dark ">last &raquo;</a> -->
+        {% endif %}
+        <span class="current">
+          Page {{ bookings_data.number }} of {{ bookings_data.paginator.num_pages }}.
+        </span>
+
+        {% if bookings_data.has_next %}
+
+        <a href="?page={{ bookings_data.next_page_number }}"
+          class="text-decoration-none text-white  btn btn-dark ">next</a>
+        {% endif %}
+      </span>
+    </div>
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
