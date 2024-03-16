@@ -34,7 +34,7 @@ class PackageDetails(admin.ModelAdmin):
 
 
 class BookingDetails(admin.ModelAdmin):
-    list_display = ["user_username", "package_name", "agency_name", "status"]
+    list_display = ["user_username", "package_name", "agency_name",]
     list_filter = ["status"]
     search_fields = ["user_id__username", "package_id__package_name"]  # Update to use user_id__username
     list_per_page = 10
@@ -62,4 +62,4 @@ admin.site.register(Booking, BookingDetails)
 
 
 admin.site.unregister(Group)
-admin.site.site_header = 'MARY MATHA TOURISM PACKAGE HUB'
+admin.site.site_header = 'Make My Way'
